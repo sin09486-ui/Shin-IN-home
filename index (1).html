@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>해맑음가족 ☀️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange-deep:  #C8601A;
+      --orange-main:  #E07B39;
+      --orange-soft:  #F5CBA7;
+      --orange-pale:  #FDF6EC;
+      --cream:        #FFFAF4;
+      --brown-dark:   #4A3728;
+      --brown-mid:    #7A5C48;
+      --brown-light:  #B08870;
+      --red-point:    #C0392B;
+      --white:        #FFFFFF;
+      --shadow:       0 4px 24px rgba(200,96,26,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Gulim', '굴림', sans-serif;
+      background: var(--cream);
+      color: var(--brown-dark);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,250,244,0.93);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--orange-soft);
+      padding: 0 24px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-weight: 700; font-size: 1rem; color: var(--orange-deep); }
+    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.85rem; font-weight: 500;
+      color: var(--brown-mid); transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange-main); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #7B3F1A 0%, var(--orange-deep) 50%, var(--orange-main) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 100px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 0.8rem; font-weight: 500;
+      padding: 6px 18px; border-radius: 20px;
+      margin-bottom: 28px; letter-spacing: 0.08em;
+    }
+    .hero-name {
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      font-weight: 900; color: #fff;
+      letter-spacing: -0.02em; line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: clamp(1.7rem, 4vw, 2.3rem);
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 36px;
+    }
+    .hero-members {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center; margin-bottom: 48px;
+    }
+    .hero-member {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff; font-size: 0.88rem;
+      padding: 8px 18px; border-radius: 30px;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: #fff; color: var(--orange-deep);
+      font-weight: 700; font-size: 0.95rem;
+      padding: 14px 36px; border-radius: 40px;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); }
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.5); font-size: 0.75rem;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .scroll-hint::after {
+      content: '↓'; font-size: 1rem;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 88px 24px; }
+    .section-inner { max-width: 860px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; color: var(--orange-main);
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800; color: var(--brown-dark);
+      line-height: 1.25; margin-bottom: 12px;
+    }
+    .section-desc { font-size: 1rem; color: var(--brown-mid); margin-bottom: 44px; }
+    .divider {
+      width: 40px; height: 3px;
+      background: var(--orange-main);
+      border-radius: 2px; margin: 14px 0 36px;
+    }
+
+    /* ── INTRO ── */
+    #intro { background: var(--white); }
+    .intro-quote {
+      background: var(--orange-pale);
+      border-left: 4px solid var(--orange-main);
+      border-radius: 0 16px 16px 0;
+      padding: 24px 28px; margin-bottom: 40px;
+      font-size: 1.05rem; line-height: 1.9; color: var(--brown-dark);
+    }
+    .intro-quote strong { color: var(--orange-deep); }
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .family-chip {
+      background: var(--orange-pale);
+      border: 1.5px solid var(--orange-soft);
+      border-radius: 16px; padding: 18px 16px;
+      text-align: center;
+    }
+    .family-chip .chip-emoji { font-size: 2rem; margin-bottom: 8px; }
+    .family-chip .chip-role { font-size: 0.8rem; font-weight: 700; color: var(--orange-deep); margin-bottom: 4px; }
+    .family-chip .chip-desc { font-size: 0.82rem; color: var(--brown-mid); line-height: 1.5; }
+
+    /* ── MEMBER SECTIONS ── */
+    .member-section-odd  { background: var(--orange-pale); }
+    .member-section-even { background: var(--white); }
+
+    .member-card {
+      background: var(--white);
+      border-radius: 24px; padding: 36px;
+      box-shadow: var(--shadow);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+      align-items: start;
+    }
+    .member-section-odd .member-card { background: var(--white); }
+
+    .member-avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: var(--orange-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; margin-bottom: 16px;
+      border: 3px solid var(--orange-main);
+    }
+    .member-title-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; color: var(--orange-deep);
+      background: var(--orange-pale);
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .member-name {
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--brown-dark); margin-bottom: 12px;
+    }
+    .member-desc {
+      font-size: 0.95rem; color: var(--brown-mid);
+      line-height: 1.85;
+    }
+    .member-info { display: flex; flex-direction: column; gap: 14px; }
+    .info-item {
+      background: var(--orange-pale);
+      border-radius: 14px; padding: 14px 18px;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .info-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .info-label { font-size: 0.72rem; font-weight: 700; color: var(--orange-deep); margin-bottom: 2px; }
+    .info-value { font-size: 0.9rem; color: var(--brown-dark); }
+    .member-quote-bubble {
+      background: var(--orange-main);
+      color: #fff; border-radius: 16px 16px 16px 4px;
+      padding: 12px 18px; font-size: 0.9rem; font-weight: 500;
+      margin-top: 4px; display: inline-block;
+    }
+
+    /* ── WORDS ── */
+    #words { background: var(--orange-pale); }
+    .words-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .word-card {
+      background: var(--white);
+      border-radius: 20px; padding: 24px 20px;
+      box-shadow: var(--shadow); text-align: center;
+    }
+    .word-card .word-emoji { font-size: 2rem; margin-bottom: 10px; }
+    .word-card .word-role { font-size: 0.78rem; font-weight: 700; color: var(--orange-deep); margin-bottom: 8px; }
+    .word-card .word-text {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 1.2rem; color: var(--brown-dark); line-height: 1.6;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(160deg, #7B3F1A 0%, var(--orange-main) 100%);
+      text-align: center;
+    }
+    #contact .section-eyebrow { color: rgba(255,255,255,0.7); }
+    #contact .section-title { color: #fff; }
+    #contact .divider { background: rgba(255,255,255,0.4); margin: 14px auto 36px; }
+    .contact-msg { font-size: 1rem; color: rgba(255,255,255,0.88); max-width: 480px; margin: 0 auto 40px; line-height: 1.9; }
+    .contact-btn {
+      display: inline-block; background: #fff; color: var(--orange-deep);
+      font-weight: 700; font-size: 0.95rem;
+      padding: 15px 40px; border-radius: 40px;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .contact-btn:hover { transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown-dark); text-align: center; padding: 28px 24px;
+    }
+    footer p { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+    footer strong { color: rgba(255,255,255,0.75); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .member-card { grid-template-columns: 1fr; gap: 24px; }
+      section { padding: 64px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 네비게이션 -->
+  <nav>
+    <div class="nav-logo">☀️ 해맑음가족</div>
+    <ul class="nav-links">
+      <li><a href="#intro">소개</a></li>
+      <li><a href="#dad">아빠</a></li>
+      <li><a href="#mom">엄마</a></li>
+      <li><a href="#daughter">딸</a></li>
+      <li><a href="#son">아들</a></li>
+      <li><a href="#words">한마디</a></li>
+    </ul>
+  </nav>
+
+  <!-- 메인 화면 -->
+  <section id="hero">
+    <div class="hero-badge">🌞 Welcome, 해맑음가족입니다</div>
+    <h1 class="hero-name">해맑음가족 ☀️</h1>
+    <p class="hero-sub">반성은 하되 후회는 하지말자</p>
+    <div class="hero-members">
+      <span class="hero-member">👨 아빠</span>
+      <span class="hero-member">👩 엄마</span>
+      <span class="hero-member">👧 딸</span>
+      <span class="hero-member">👦 아들</span>
+    </div>
+    <a href="#intro" class="hero-cta">우리 가족 만나러 가기 →</a>
+    <div class="scroll-hint">스크롤해서 더 보기</div>
+  </section>
+
+  <!-- 소개 섹션 -->
+  <section id="intro">
+    <div class="section-inner">
+      <span class="section-eyebrow">Our Family</span>
+      <h2 class="section-title">우리 가족을<br>소개합니다 👨‍👩‍👧‍👦</h2>
+      <div class="divider"></div>
+      <div class="intro-quote">
+        안녕하세요, <strong>해맑음가족</strong> 🌞<br>
+        우리는 넷이서 함께 웃고, 가끔 티격태격하면서도<br>
+        서로에게 가장 든든한 사람들.<br>
+        아빠, 엄마, 딸, 아들 — 제각각 다르지만, 그래서 더 재미있는 우리 가족! 🤝
+      </div>
+      <div class="family-grid">
+        <div class="family-chip">
+          <div class="chip-emoji">👨</div>
+          <div class="chip-role">아빠</div>
+          <div class="chip-desc">볼링공을 굴리면 스트라이크!<br>성실함이 넘치는 우리 집 기둥</div>
+        </div>
+        <div class="family-chip">
+          <div class="chip-emoji">👩</div>
+          <div class="chip-role">엄마</div>
+          <div class="chip-desc">부지런함 하나로<br>가족을 든든하게 지키는 엔진</div>
+        </div>
+        <div class="family-chip">
+          <div class="chip-emoji">👧</div>
+          <div class="chip-role">딸</div>
+          <div class="chip-desc">무대 위에서 빛나는<br>맛있는 것을 찾아다니는 탐험가</div>
+        </div>
+        <div class="family-chip">
+          <div class="chip-emoji">👦</div>
+          <div class="chip-role">아들</div>
+          <div class="chip-desc">친구들과 어울리는 것을 사랑하는<br>기타 소리로 감성 충전</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 아빠 섹션 -->
+  <section id="dad" class="member-section-odd">
+    <div class="section-inner">
+      <span class="section-eyebrow">Dad</span>
+      <h2 class="section-title">우리 가족의 든든한 기둥 👨</h2>
+      <div class="divider"></div>
+      <div class="member-card">
+        <div>
+          <div class="member-avatar">👨</div>
+          <div class="member-title-tag">우리 집 기둥</div>
+          <div class="member-name">아빠</div>
+          <p class="member-desc">
+            아빠는 볼링과 골프를 사랑하는 스포츠맨이에요.<br>
+            공을 굴리고 스윙을 날릴 때 가장 환하게 웃어요. ⛳<br><br>
+            무엇보다 <strong>성실함</strong>이 아빠의 가장 큰 자랑인데요,<br>
+            묵묵히 자기 자리를 지키는 모습이 우리 가족에게 큰 힘이 된답니다.
+          </p>
+        </div>
+        <div class="member-info">
+          <div class="info-item">
+            <div class="info-icon">🎳</div>
+            <div>
+              <div class="info-label">잘하는 것</div>
+              <div class="info-value">볼링, 골프</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">💪</div>
+            <div>
+              <div class="info-label">강점</div>
+              <div class="info-value">성실함</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">❤️</div>
+            <div>
+              <div class="info-label">가족에게</div>
+              <div class="member-quote-bubble">"항상 곁에 있을게"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 엄마 섹션 -->
+  <section id="mom" class="member-section-even">
+    <div class="section-inner">
+      <span class="section-eyebrow">Mom</span>
+      <h2 class="section-title">우리 가족의 에너지 충전소 👩</h2>
+      <div class="divider"></div>
+      <div class="member-card">
+        <div>
+          <div class="member-avatar">👩</div>
+          <div class="member-title-tag">우리 집 엔진</div>
+          <div class="member-name">엄마</div>
+          <p class="member-desc">
+            엄마는 누구보다 부지런한 사람이에요.<br>
+            아침 일찍부터 움직이며 가족을 위해 하루를 채워나가죠.<br><br>
+            책 읽는 걸 좋아하고, 좋아하는 TV 프로그램 앞에서만큼은<br>
+            잠시 쉬어가는 여유도 알고 있어요. 📚📺<br>
+            바쁜 일상 속에서도 가족을 가장 먼저 생각하는 사람이랍니다.
+          </p>
+        </div>
+        <div class="member-info">
+          <div class="info-item">
+            <div class="info-icon">⚡</div>
+            <div>
+              <div class="info-label">강점</div>
+              <div class="info-value">부지런함</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📚</div>
+            <div>
+              <div class="info-label">좋아하는 것</div>
+              <div class="info-value">책, 텔레비전</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">❤️</div>
+            <div>
+              <div class="info-label">가족에게</div>
+              <div class="member-quote-bubble">"좀 치워!!!"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 딸 섹션 -->
+  <section id="daughter" class="member-section-odd">
+    <div class="section-inner">
+      <span class="section-eyebrow">Daughter</span>
+      <h2 class="section-title">연극무대와 야구를 사랑하는 딸 👧</h2>
+      <div class="divider"></div>
+      <div class="member-card">
+        <div>
+          <div class="member-avatar">👧</div>
+          <div class="member-title-tag">우리 집 에너지</div>
+          <div class="member-name">딸</div>
+          <p class="member-desc">
+            딸은 연극을 사랑해요. 무대 연출과 생생함을 사랑하며 🎭<br><br>
+            그리고 맛있는 음식 앞에서는 누구보다 행복해지는 사람이기도 해요.<br>
+            "이 집 맛있어!" 한마디면 하루가 다 채워지는<br>
+            우리 집의 밝은 에너지예요.
+          </p>
+        </div>
+        <div class="member-info">
+          <div class="info-item">
+            <div class="info-icon">🗣️</div>
+            <div>
+              <div class="info-label">잘하는 것</div>
+              <div class="info-value">말, 플룻</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">🍽️</div>
+            <div>
+              <div class="info-label">좋아하는 것</div>
+              <div class="info-value">맛있는 것 탐방, 야구, 연극보기</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">❤️</div>
+            <div>
+              <div class="info-label">가족에게</div>
+              <div class="member-quote-bubble">"피곤해!"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 아들 섹션 -->
+  <section id="son" class="member-section-even">
+    <div class="section-inner">
+      <span class="section-eyebrow">Son</span>
+      <h2 class="section-title">감성 충전 중, 우리 집 막내 👦</h2>
+      <div class="divider"></div>
+      <div class="member-card">
+        <div>
+          <div class="member-avatar">👦</div>
+          <div class="member-title-tag">우리 집 활기</div>
+          <div class="member-name">아들</div>
+          <p class="member-desc">
+            아들은 친구들과 함께하는 시간을 가장 좋아해요.<br>
+            왁자지껄한 자리에서 에너지를 얻는 사람이거든요. 🍻<br><br>
+            기타를 치며 혼자만의 감성을 채우기도 하고,<br>
+            때론 조용히 선율에 빠져드는 모습도 보여줘요. 🎸<br>
+            시끌벅적하지만 그게 또 우리 가족의 활기예요.
+          </p>
+        </div>
+        <div class="member-info">
+          <div class="info-item">
+            <div class="info-icon">🎸</div>
+            <div>
+              <div class="info-label">잘하는 것</div>
+              <div class="info-value">기타</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">👫</div>
+            <div>
+              <div class="info-label">좋아하는 것</div>
+              <div class="info-value">친구들과 어울리기</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">❤️</div>
+            <div>
+              <div class="info-label">가족에게</div>
+              <div class="member-quote-bubble">"나 오늘 늦어~"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 가족 한마디 -->
+  <section id="words">
+    <div class="section-inner">
+      <span class="section-eyebrow">Family Words</span>
+      <h2 class="section-title">우리 가족 한마디 💬</h2>
+      <div class="divider"></div>
+      <p class="section-desc">각자의 방식으로, 하지만 모두 같은 마음으로 — 우리는 가족이에요.</p>
+      <div class="words-grid">
+        <div class="word-card">
+          <div class="word-emoji">👨</div>
+          <div class="word-role">아빠</div>
+          <div class="word-text">"가족이 있어서<br>오늘도 열심히 살 수 있어."</div>
+        </div>
+        <div class="word-card">
+          <div class="word-emoji">👩</div>
+          <div class="word-role">엄마</div>
+          <div class="word-text">"우리 가족,<br>건강하고 떳떳하게 믿어."</div>
+        </div>
+        <div class="word-card">
+          <div class="word-emoji">👧</div>
+          <div class="word-role">딸</div>
+          <div class="word-text">"이 가족이라서 다행이야.<br>가끔은." 😄</div>
+        </div>
+        <div class="word-card">
+          <div class="word-emoji">👦</div>
+          <div class="word-role">아들</div>
+          <div class="word-text">"집이 최고야"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 문의 / 마무리 -->
+  <section id="contact">
+    <div class="section-inner">
+      <span class="section-eyebrow">Hello!</span>
+      <h2 class="section-title">찾아주셔서 감사해요 🌞</h2>
+      <div class="divider"></div>
+      <p class="contact-msg">
+        ☀️ <strong style="color:#fff;">해맑음가족</strong>의 페이지를 끝까지 봐주셔서 감사해요.<br>
+        각자 다른 모습이지만, 함께일 때 가장 빛나는 우리 가족이에요.<br>
+        가족도, 친구도, 이 페이지에 오신 모든 분들 환영해요!<br>
+        앞으로도 웃음이 넘치는 해맑음가족이 될게요! 🌞
+      </p>
+      <a href="mailto:" class="contact-btn">✉️ 우리 가족에게 인사하기</a>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>© 2025 <strong>해맑음가족 ☀️</strong> · 함께라서 따뜻한 우리</p>
+    <p style="margin-top:6px;">방문해 주셔서 감사합니다 😊</p>
+  </footer>
+
+</body>
+</html>
